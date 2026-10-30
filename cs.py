@@ -6,8 +6,15 @@ import glob
 
 from tabulate import tabulate
 
-CHEATSHEETS_PATH = "./hotkeys/*.xx"
-OUTPUT_PATH = "./output"
+try:
+    import config as cfg
+except ImportError:
+    CHEATSHEETS_PATH = "./hotkeys/*.xx"
+    OUTPUT_PATH = "./output"
+else:
+    CHEATSHEETS_PATH = cfg.CHEATSHEETS_PATH
+    OUTPUT_PATH = cfg.OUTPUT_PATH
+
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
 files = glob.glob(CHEATSHEETS_PATH)
