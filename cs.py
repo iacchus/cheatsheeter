@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
 import glob
+import pprint
 import tomllib
 
-import tabulate
+from tabulate import tabulate
 
 CHEATSHEETS_PATH = "./hotkeys/*.xx"
+TABLE_HEADERS = ["Action", "Hotkeys"]
 
 files = glob.glob(CHEATSHEETS_PATH)
 
@@ -30,6 +32,13 @@ for program, filepath in cheatsheets_dict.items():
         hotkey_list.append([action, hotkeys])
     #  data.update({f"{program}": for entry in entries})
 
-    print(hotkey_list)
+    data.update({program: hotkey_list})
+
+    tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
+    print(tb)
+    #  table = tabulate(table=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
+
+    #  print(hotkey_list)
     #  print(cheatsheet)
     #  print(cheatsheet.split("\n\n"))
+pprint.pprint(data)
