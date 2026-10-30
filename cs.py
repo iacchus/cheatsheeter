@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import glob
-import pprint
-import tomllib
+#  import pprint
+#  import tomllib
 
 from tabulate import tabulate
 
@@ -41,4 +41,4 @@ for program, filepath in cheatsheets_dict.items():
     with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
         output_file.write(tb)
 
-pprint.pprint(data)
+#  pprint.pprint(data)
