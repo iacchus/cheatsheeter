@@ -7,7 +7,7 @@ import tomllib
 from tabulate import tabulate
 
 CHEATSHEETS_PATH = "./hotkeys/*.xx"
-OUTPUT_PATH = "./output/"
+OUTPUT_PATH = "./output"
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
 files = glob.glob(CHEATSHEETS_PATH)
@@ -35,5 +35,8 @@ for program, filepath in cheatsheets_dict.items():
 
     tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
     print(tb)
+
+    with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
+        output_file.write(tb)
 
 pprint.pprint(data)
