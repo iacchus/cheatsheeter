@@ -1,3 +1,3 @@
-| Action      | Hotkeys        |
-|-------------|----------------|
-| Scale layer | Ctrl + Alt + l |
+| Action      | Hotkeys                                         |
+|-------------|-------------------------------------------------|
+| Scale layer | <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd> |
