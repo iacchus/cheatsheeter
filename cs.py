@@ -29,7 +29,9 @@ for program, filepath in cheatsheets_dict.items():
 
     for entry in entries:
         action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-        hotkey_list.append([action, hotkeys])
+        keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys if key])
+        #  hotkey_list.append([action, hotkeys])
+        hotkey_list.append([action, keys])
 
     data.update({program: hotkey_list})
 
