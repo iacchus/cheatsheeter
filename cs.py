@@ -4,6 +4,8 @@ import glob
 #  import pprint
 #  import tomllib
 
+import click
+
 from tabulate import tabulate
 
 try:
@@ -44,3 +46,15 @@ for program, filepath in cheatsheets_dict.items():
         output_file.write(tb)
 
 #  pprint.pprint(data)
+
+@click.group
+def cli():
+    pass
+
+@click.command
+@click.option("-p/--print", is_flag=True)
+def cheatsheeter(print):
+    pass
+
+if __name__ == "__main__":
+    cheatsheeter()
