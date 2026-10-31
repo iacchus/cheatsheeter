@@ -23,7 +23,6 @@ TABLE_HEADERS = ["Action", "Hotkeys"]
 
 #  cheatsheets_dict = {entry.split('/')[-1].split('.')[0]: entry for entry in files}
 
-#  data = dict()
 
 class Cheatsheeter:
     def __init__(self, cheatsheet_path):
@@ -33,9 +32,11 @@ class Cheatsheeter:
         #  files = glob.glob(cheatsheet_path)
         #  self.files = self.get_cheatsheet_files(cheatsheet_path)
         files = self.get_cheatsheet_files(cheatsheet_path)
+        self.files = files
 
-        cheatsheets_dict = {entry.split('/')[-1].split('.')[0]:
-                            entry for entry in files}
+        #  cheatsheets_dict = {entry.split('/')[-1].split('.')[0]:
+        #                      entry for entry in files}
+        cheatsheets_dict = get_cheatsheet_dict(files)
         self.cheatsheets_dict = cheatsheets_dict
 
     def get_cheatsheet_files(self, cheatsheet_path):
@@ -47,28 +48,55 @@ class Cheatsheeter:
                             entry for entry in files}
         return cheatsheets_dict
 
+    def write_files(self, cheatsheets_dict):
+        #  data = dict()
 
-for program, filepath in cheatsheets_dict.items():
-    hotkey_list = list()
-    with open(filepath, "r") as cheetsheet_fd:
-        cheatsheet = cheetsheet_fd.read()
+        for program, filepath in cheatsheets_dict.items():
+            hotkey_list = list()
+            with open(filepath, "r") as cheetsheet_fd:
+                cheatsheet = cheetsheet_fd.read()
 
-    entries = cheatsheet.split("\n\n")
+            entries = cheatsheet.split("\n\n")
 
-    for entry in entries:
-        action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-        keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
-        hotkey_list.append([action, keys])
+            for entry in entries:
+                action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+                keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
+                hotkey_list.append([action, keys])
 
-    #  data.update({program: hotkey_list})
+            #  data.update({program: hotkey_list})
 
-    tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
-    #  print(tb)
+            tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
+            #  print(tb)
 
-    with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
-        output_file.write(tb)
+            with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
+                output_file.write(tb)
 
-#  pprint.pprint(data)
+        #  pprint.pprint(data)
+
+
+#  #  data = dict()
+#
+#  for program, filepath in cheatsheets_dict.items():
+#      hotkey_list = list()
+#      with open(filepath, "r") as cheetsheet_fd:
+#          cheatsheet = cheetsheet_fd.read()
+#
+#      entries = cheatsheet.split("\n\n")
+#
+#      for entry in entries:
+#          action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+#          keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
+#          hotkey_list.append([action, keys])
+#
+#      #  data.update({program: hotkey_list})
+#
+#      tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
+#      #  print(tb)
+#
+#      with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
+#          output_file.write(tb)
+#
+#  #  pprint.pprint(data)
 
 @click.group
 def cli():
@@ -77,6 +105,7 @@ def cli():
 @click.command
 @click.option("-p/--print", is_flag=True)
 def cheatsheeter(print):
+    cs = Cheatsheeter()
     pass
 
 if __name__ == "__main__":
