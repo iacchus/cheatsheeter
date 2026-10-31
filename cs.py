@@ -58,19 +58,21 @@ class Cheatsheeter:
                                                      program_name=program_name)
 
         with open(output_file_path, "w") as output_file:
-            #  output_file_path = get_output_file_path(
             output_file.write(data)
 
+        return output_file_path
 
     def write_files(self, cheatsheets_dict, output_path):
         #  data = dict()
 
         for program, filepath in cheatsheets_dict.items():
             hotkey_list = list()
+
             with open(filepath, "r") as cheetsheet_fd:
                 cheatsheet = cheetsheet_fd.read()
 
-            entries = cheatsheet.split("\n\n")
+            entries = [entry.strip()
+                       for entry in cheatsheet.split("\n\n") if entry]
 
             for entry in entries:
                 action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
@@ -116,9 +118,9 @@ class Cheatsheeter:
 #
 #  #  pprint.pprint(data)
 
-@click.group
-def cli():
-    pass
+#  @click.group
+#  def cli():
+#      pass
 
 @click.command
 @click.option("-p/--print", is_flag=True)
