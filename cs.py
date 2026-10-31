@@ -132,7 +132,7 @@ class Cheatsheeter:
 #      pass
 
 @click.command
-@click.option("--print", is_flag=True)
+@click.option("-p", "--print", is_flag=True)
 def cheatsheeter(print):
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
