@@ -68,6 +68,27 @@ class Cheatsheeter:
         if not cheatsheets_dict:
             cheatsheets_dict = self.cheatsheets_dict
 
+        cheatsheets = dict()
+
+        for program, filepath in cheatsheets_dict.items():
+            hotkey_list = list()
+
+            with open(filepath, "r") as cheetsheet_fd:
+                cheatsheet = cheetsheet_fd.read()
+
+            entries = [entry.strip()
+                       for entry in cheatsheet.split("\n\n") if entry]
+
+            for entry in entries:
+                action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+                keys = " + ".join([f"<kbd>{key.title()}</kbd>"
+                                   for key in hotkeys.split(' ') if key])
+                hotkey_list.append([action, keys])
+
+            cheatsheets.update({program: hotkey_list})
+
+        self.cheatsheets = cheatsheets
+
     def write_files(self, cheatsheets_dict=None, output_path=None):
 
         if not cheatsheets_dict:
@@ -106,16 +127,16 @@ class Cheatsheeter:
         #  pprint.pprint(data)
         pprint.pprint(cheatsheets)
 
-    def print_cheatsheets(self, cheatsheets_dict=None, output_path=None):
+    def print_cheatsheets(self, cheatsheets=None):
+    #  def print_cheatsheets(self, cheatsheets_dict=None, output_path=None):
 
-        if not cheatsheets_dict:
-            cheatsheets_dict = self.cheatsheets_dict
+        if not cheatsheets:
+            cheatsheets = self.cheatsheets
 
-        if not output_path:
-            output_path = self.output_path
+        #  if not output_path:
+        #      output_path = self.output_path
 
-        cheatsheets = dict()
-
+        #  cheatsheets = dict()
         for program, filepath in cheatsheets_dict.items():
             hotkey_list = list()
 
@@ -136,6 +157,27 @@ class Cheatsheeter:
             tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                           tablefmt="rounded_grid")
             print(program, tb, sep="\n", end="\n\n")
+
+        #  for program, filepath in cheatsheets_dict.items():
+        #      hotkey_list = list()
+        #
+        #      with open(filepath, "r") as cheetsheet_fd:
+        #          cheatsheet = cheetsheet_fd.read()
+        #
+        #      entries = [entry.strip()
+        #                 for entry in cheatsheet.split("\n\n") if entry]
+        #
+        #      for entry in entries:
+        #          action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+        #          keys = " + ".join([f"<kbd>{key.title()}</kbd>"
+        #                             for key in hotkeys.split(' ') if key])
+        #          hotkey_list.append([action, keys])
+        #
+        #      cheatsheets.update({program: hotkey_list})
+        #
+        #      tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+        #                    tablefmt="rounded_grid")
+        #      print(program, tb, sep="\n", end="\n\n")
 
             #  self.write_output_file(output_path=output_path,
             #                         program_name=program,
