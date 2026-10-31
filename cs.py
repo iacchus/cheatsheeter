@@ -10,18 +10,17 @@ from tabulate import tabulate
 
 DEBUG = True
 
+CHEATSHEETS_PATH = "./hotkeys/*.xx"
+OUTPUT_PATH = "./output"
+
 try:
     import config as cfg
 except ImportError:
-    CHEATSHEETS_PATH = "./hotkeys/*.xx"
-    OUTPUT_PATH = "./output"
+    pass
 else:
     if not DEBUG:
         CHEATSHEETS_PATH = cfg.CHEATSHEETS_PATH
         OUTPUT_PATH = cfg.OUTPUT_PATH
-    else:
-        CHEATSHEETS_PATH = "./hotkeys/*.xx"
-        OUTPUT_PATH = "./output"
 
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
@@ -39,9 +38,6 @@ class Cheatsheeter:
         self.cheatsheets_dict = cheatsheets_dict
 
         self.read_cheatsheets(cheatsheets_dict=cheatsheets_dict)
-
-        #  self.write_files(cheatsheets_dict=cheatsheets_dict,
-        #                   output_path=output_path)
 
     def get_cheatsheet_files(self, cheatsheet_path):
         files = glob.glob(cheatsheet_path)
@@ -71,27 +67,16 @@ class Cheatsheeter:
             cheatsheets_dict = self.cheatsheets_dict
 
         cheatsheets = dict()
-        #  entries_dict = dict()
 
         for program, filepath in cheatsheets_dict.items():
-            hotkey_list = list()
-            #  entry_list = list()
 
             with open(filepath, "r") as cheetsheet_fd:
                 cheatsheet = cheetsheet_fd.read()
 
             entries = [entry.strip()
                        for entry in cheatsheet.split("\n\n") if entry.strip()]
-            #  entries_dict = cheatsheets.update({program: entries})
-
-            #  for entry in entries:
-            #      action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-            #      keys = " + ".join([f"<kbd>{key.title()}</kbd>"
-            #                         for key in hotkeys.split(' ') if key])
-            #      hotkey_list.append([action, keys])
 
             cheatsheets.update({program: entries})
-            #  cheatsheets.update({program: hotkey_list})
 
         self.cheatsheets = cheatsheets
 
@@ -103,7 +88,6 @@ class Cheatsheeter:
         if not output_path:
             output_path = self.output_path
 
-        #  for program, hotkey_list in cheatsheets.items():
         for program, entries in cheatsheets.items():
             hotkey_list = list()
 
@@ -125,7 +109,6 @@ class Cheatsheeter:
         if not cheatsheets:
             cheatsheets = self.cheatsheets
 
-        #  for program, hotkey_list in cheatsheets.items():
         for program, entries in cheatsheets.items():
             hotkey_list = list()
 
