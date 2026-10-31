@@ -53,15 +53,6 @@ class Cheatsheeter:
         output_file_path = f"{output_path}/{program_name}.md"
         return output_file_path
 
-    def write_output_file(self, output_path, program_name, data):
-        output_file_path = self.get_output_file_path(output_path=output_path,
-                                                     program_name=program_name)
-
-        with open(output_file_path, "w") as output_file:
-            output_file.write(data)
-
-        return output_file_path
-
     def read_cheatsheets(self, cheatsheets_dict=None):
 
         if not cheatsheets_dict:
@@ -71,6 +62,7 @@ class Cheatsheeter:
 
         for program, filepath in cheatsheets_dict.items():
 
+            print(f"Reading file '{filepath}'.")
             with open(filepath, "r") as cheetsheet_fd:
                 cheatsheet = cheetsheet_fd.read()
 
@@ -80,6 +72,17 @@ class Cheatsheeter:
             cheatsheets.update({program: entries})
 
         self.cheatsheets = cheatsheets
+
+    def write_output_file(self, output_path, program_name, data):
+        output_file_path = self.get_output_file_path(output_path=output_path,
+                                                     program_name=program_name)
+
+        print(f"Writing file '{output_file_path}'.")
+
+        with open(output_file_path, "w") as output_file:
+            output_file.write(data)
+
+        return output_file_path
 
     def write_files(self, cheatsheets=None, output_path=None):
 
