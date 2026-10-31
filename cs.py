@@ -19,13 +19,9 @@ TABLE_HEADERS = ["Action", "Hotkeys"]
 
 files = glob.glob(CHEATSHEETS_PATH)
 
-#  print(files)
-
 cheatsheets_dict = {entry.split('/')[-1].split('.')[0]: entry for entry in files}
 
-#  print(cheatsheets_dict)
-
-data = dict()
+#  data = dict()
 
 for program, filepath in cheatsheets_dict.items():
     hotkey_list = list()
@@ -37,13 +33,12 @@ for program, filepath in cheatsheets_dict.items():
     for entry in entries:
         action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
         keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
-        #  hotkey_list.append([action, hotkeys])
         hotkey_list.append([action, keys])
 
-    data.update({program: hotkey_list})
+    #  data.update({program: hotkey_list})
 
     tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
-    print(tb)
+    #  print(tb)
 
     with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
         output_file.write(tb)
