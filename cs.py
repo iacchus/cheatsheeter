@@ -8,7 +8,8 @@ import click
 
 from tabulate import tabulate
 
-DEBUG = True
+DEBUG = False
+#  del(DEBUG)
 
 CHEATSHEETS_PATH = "./hotkeys/*.xx"
 OUTPUT_PATH = "./output"
