@@ -83,7 +83,8 @@ class Cheatsheeter:
 
             cheatsheets.update({program: hotkey_list})
 
-            tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
+            tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+                          tablefmt="github")
             #  print(tb)
 
             self.write_output_file(output_path=output_path,
