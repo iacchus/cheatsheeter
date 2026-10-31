@@ -76,7 +76,8 @@ class Cheatsheeter:
 
             for entry in entries:
                 action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-                keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
+                keys = " + ".join([f"<kbd>{key.title()}</kbd>"
+                                   for key in hotkeys.split(' ') if key])
                 hotkey_list.append([action, keys])
 
             #  data.update({program: hotkey_list})
