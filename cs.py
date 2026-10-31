@@ -38,6 +38,8 @@ class Cheatsheeter:
         cheatsheets_dict = self.get_cheatsheet_dict(files)
         self.cheatsheets_dict = cheatsheets_dict
 
+        self.read_cheatsheets(cheatsheets_dict=cheatsheets_dict)
+
         #  self.write_files(cheatsheets_dict=cheatsheets_dict,
         #                   output_path=output_path)
 
@@ -63,7 +65,7 @@ class Cheatsheeter:
 
         return output_file_path
 
-    def read_cheatsheets(self, cheatsheets_dict):
+    def read_cheatsheets(self, cheatsheets_dict=None):
 
         if not cheatsheets_dict:
             cheatsheets_dict = self.cheatsheets_dict
@@ -137,22 +139,22 @@ class Cheatsheeter:
         #      output_path = self.output_path
 
         #  cheatsheets = dict()
-        for program, filepath in cheatsheets_dict.items():
-            hotkey_list = list()
+        for program, hotkey_list in cheatsheets.items():
+            #  hotkey_list = list()
 
-            with open(filepath, "r") as cheetsheet_fd:
-                cheatsheet = cheetsheet_fd.read()
+            #  with open(filepath, "r") as cheetsheet_fd:
+            #      cheatsheet = cheetsheet_fd.read()
 
-            entries = [entry.strip()
-                       for entry in cheatsheet.split("\n\n") if entry]
+            #  entries = [entry.strip()
+            #             for entry in cheatsheet.split("\n\n") if entry]
 
-            for entry in entries:
-                action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-                keys = " + ".join([f"<kbd>{key.title()}</kbd>"
-                                   for key in hotkeys.split(' ') if key])
-                hotkey_list.append([action, keys])
+            #  for entry in entries:
+            #      action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+            #      keys = " + ".join([f"<kbd>{key.title()}</kbd>"
+            #                         for key in hotkeys.split(' ') if key])
+            #      hotkey_list.append([action, keys])
 
-            cheatsheets.update({program: hotkey_list})
+            #  cheatsheets.update({program: hotkey_list})
 
             tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                           tablefmt="rounded_grid")
@@ -184,8 +186,8 @@ class Cheatsheeter:
             #                         data=tb)
 
         #  pprint.pprint(data)
-        self.cheatsheets = cheatsheets
-        pprint.pprint(cheatsheets)
+        #  self.cheatsheets = cheatsheets
+        #  pprint.pprint(cheatsheets)
 
 #  @click.group
 #  def cli():
