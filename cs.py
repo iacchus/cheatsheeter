@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import glob
-#  import pprint
+import pprint
 #  import tomllib
 
 import click
@@ -64,7 +64,7 @@ class Cheatsheeter:
         return output_file_path
 
     def write_files(self, cheatsheets_dict, output_path):
-        #  data = dict()
+        cheatsheets = dict()
 
         for program, filepath in cheatsheets_dict.items():
             hotkey_list = list()
@@ -81,7 +81,7 @@ class Cheatsheeter:
                                    for key in hotkeys.split(' ') if key])
                 hotkey_list.append([action, keys])
 
-            #  data.update({program: hotkey_list})
+            cheatsheets.update({program: hotkey_list})
 
             tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
             #  print(tb)
@@ -91,6 +91,7 @@ class Cheatsheeter:
                                    data=tb)
 
         #  pprint.pprint(data)
+        pprint.pprint(cheatsheets)
 
 
 #  @click.group
