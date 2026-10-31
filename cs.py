@@ -25,24 +25,16 @@ else:
 
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
-#  files = glob.glob(CHEATSHEETS_PATH)
-
-#  cheatsheets_dict = {entry.split('/')[-1].split('.')[0]: entry for entry in files}
-
 
 class Cheatsheeter:
     def __init__(self, cheatsheets_path, output_path):
-        #  def __init__(self, cheatsheet_path, output_path):
 
         self.cheatsheets_path = cheatsheets_path
         self.output_path = output_path
-        #  files = glob.glob(cheatsheet_path)
-        #  self.files = self.get_cheatsheet_files(cheatsheet_path)
+
         files = self.get_cheatsheet_files(cheatsheets_path)
         self.files = files
 
-        #  cheatsheets_dict = {entry.split('/')[-1].split('.')[0]:
-        #                      entry for entry in files}
         cheatsheets_dict = self.get_cheatsheet_dict(files)
         self.cheatsheets_dict = cheatsheets_dict
 
@@ -98,35 +90,8 @@ class Cheatsheeter:
                                    program_name=program,
                                    data=tb)
 
-            #  with open(f"{output_path}/{program}.md", "w") as output_file:
-            #      output_file.write(tb)
-
         #  pprint.pprint(data)
 
-
-#  #  data = dict()
-#
-#  for program, filepath in cheatsheets_dict.items():
-#      hotkey_list = list()
-#      with open(filepath, "r") as cheetsheet_fd:
-#          cheatsheet = cheetsheet_fd.read()
-#
-#      entries = cheatsheet.split("\n\n")
-#
-#      for entry in entries:
-#          action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-#          keys = " + ".join([f"<kbd>{key.title()}</kbd>" for key in hotkeys.split(' ') if key])
-#          hotkey_list.append([action, keys])
-#
-#      #  data.update({program: hotkey_list})
-#
-#      tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS, tablefmt="github")
-#      #  print(tb)
-#
-#      with open(f"{OUTPUT_PATH}/{program}.md", "w") as output_file:
-#          output_file.write(tb)
-#
-#  #  pprint.pprint(data)
 
 #  @click.group
 #  def cli():
