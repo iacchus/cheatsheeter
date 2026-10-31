@@ -19,11 +19,34 @@ else:
 
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
-files = glob.glob(CHEATSHEETS_PATH)
+#  files = glob.glob(CHEATSHEETS_PATH)
 
-cheatsheets_dict = {entry.split('/')[-1].split('.')[0]: entry for entry in files}
+#  cheatsheets_dict = {entry.split('/')[-1].split('.')[0]: entry for entry in files}
 
 #  data = dict()
+
+class Cheatsheeter:
+    def __init__(self, cheatsheet_path):
+        #  def __init__(self, cheatsheet_path, output_path):
+
+        self.cheatsheet_path = cheatsheet_path
+        #  files = glob.glob(cheatsheet_path)
+        #  self.files = self.get_cheatsheet_files(cheatsheet_path)
+        files = self.get_cheatsheet_files(cheatsheet_path)
+
+        cheatsheets_dict = {entry.split('/')[-1].split('.')[0]:
+                            entry for entry in files}
+        self.cheatsheets_dict = cheatsheets_dict
+
+    def get_cheatsheet_files(self, cheatsheet_path):
+        files = glob.glob(cheatsheet_path)
+        return files
+
+    def get_cheatsheet_dict(self, files):
+        cheatsheets_dict = {entry.split('/')[-1].split('.')[0]:
+                            entry for entry in files}
+        return cheatsheets_dict
+
 
 for program, filepath in cheatsheets_dict.items():
     hotkey_list = list()
