@@ -8,14 +8,20 @@ import click
 
 from tabulate import tabulate
 
+DEBUG = True
+
 try:
     import config as cfg
 except ImportError:
     CHEATSHEETS_PATH = "./hotkeys/*.xx"
     OUTPUT_PATH = "./output"
 else:
-    CHEATSHEETS_PATH = cfg.CHEATSHEETS_PATH
-    OUTPUT_PATH = cfg.OUTPUT_PATH
+    if not DEBUG:
+        CHEATSHEETS_PATH = cfg.CHEATSHEETS_PATH
+        OUTPUT_PATH = cfg.OUTPUT_PATH
+    else:
+        CHEATSHEETS_PATH = "./hotkeys/*.xx"
+        OUTPUT_PATH = "./output"
 
 TABLE_HEADERS = ["Action", "Hotkeys"]
 
@@ -39,6 +45,9 @@ class Cheatsheeter:
         #                      entry for entry in files}
         cheatsheets_dict = self.get_cheatsheet_dict(files)
         self.cheatsheets_dict = cheatsheets_dict
+
+        self.write_files(cheatsheets_dict=cheatsheets_dict,
+                         output_path=output_path)
 
     def get_cheatsheet_files(self, cheatsheet_path):
         files = glob.glob(cheatsheet_path)
