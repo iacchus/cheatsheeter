@@ -138,7 +138,8 @@ class Cheatsheeter:
 def cheatsheeter(ctx, print):
     if ctx.invoked_subcommand is None:
         cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-                          output_path=OUTPUT_PATH)
+                          output_path=OUTPUT_PATH)  # FIXME: we don't need this
+                                                    # for printing only
 
         if print:
             cs.print_cheatsheets()
