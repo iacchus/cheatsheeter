@@ -127,13 +127,15 @@ class Cheatsheeter:
                           tablefmt="rounded_grid")
             print(program, tb, sep="\n", end="\n\n")
 
-#  @click.group
-#  def cli():
+#  @click.group(invoke_without_command=True)
+#  def cheatsheeter(ctx):
 #      pass
 
-@click.command
+#  @click.command
+@click.group(invoke_without_command=True)
 @click.option("-p", "--print", is_flag=True)
-def cheatsheeter(print):
+@click.pass_context
+def cheatsheeter(ctx, print):
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
 
