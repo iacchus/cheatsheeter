@@ -63,6 +63,11 @@ class Cheatsheeter:
 
         return output_file_path
 
+    def read_cheatsheets(self, cheatsheets_dict):
+
+        if not cheatsheets_dict:
+            cheatsheets_dict = self.cheatsheets_dict
+
     def write_files(self, cheatsheets_dict=None, output_path=None):
 
         if not cheatsheets_dict:
@@ -137,6 +142,7 @@ class Cheatsheeter:
             #                         data=tb)
 
         #  pprint.pprint(data)
+        self.cheatsheets = cheatsheets
         pprint.pprint(cheatsheets)
 
 #  @click.group
