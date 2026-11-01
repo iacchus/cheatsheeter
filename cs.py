@@ -116,22 +116,17 @@ class Cheatsheeter:
             self.write_output_file(output_path=output_path,
                                    program_name=program,
                                    data=tb)
-                                   #  data=tb,
-                                   #  verbose=verbose)
 
     def print_cheatsheets(self, cheatsheets=None, program=None):
 
         if not cheatsheets:
             cheatsheets = self.cheatsheets
 
-        #  if program and program not in cheatsheets.keys():
         if program and program not in cheatsheets:
             print(f"Cheatsheet '{program}' doesn\'t exist in"
                   f" '{self.output_path}'.")
             exit(1)
-        #  elif program and program in cheatsheets.keys():
         if program and program in cheatsheets:
-            #  _cheatsheets = cheatsheets[program]
             _cheatsheets = {program: cheatsheets[program]}
         else:
             _cheatsheets = cheatsheets
