@@ -138,9 +138,6 @@ class Cheatsheeter:
                           tablefmt="rounded_grid")
             print(program, tb, sep="\n", end="\n\n")
 
-#  @click.group(invoke_without_command=True)
-#  def cheatsheeter(ctx):
-#      pass
 
 #  @click.command
 #  @click.option("-p", "--print", is_flag=True)
@@ -148,18 +145,20 @@ class Cheatsheeter:
 #  @click.group()
 #  @click.pass_context
 #  def cheatsheeter(ctx):
-@click.group()
-def cheatsheeter():
+#  @click.group()
+@click.group(invoke_without_command=True)
+@click.pass_context
+def cheatsheeter(ctx):
     pass
     #  if ctx.invoked_subcommand is None:
     #      cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-    #                        output_path=OUTPUT_PATH)  # FIXME: we don't need this
-    #                                                  # for printing only
+    #                        output_path=OUTPUT_PATH)
     #
     #      if print:
     #          cs.print_cheatsheets()
     #      else:
     #          cs.write_files(verbose=True)
+
 
 @cheatsheeter.command(name="list")
 def list_cmd():
@@ -169,11 +168,13 @@ def list_cmd():
     #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
     print(cheatsheet_list)
 
+
 @cheatsheeter.command(name="print")
 def print_cmd():
     cs = Cheatsheeter()
 
     cs.print_cheatsheets()
+
 
 @cheatsheeter.command(name="write")
 def write_cmd():
