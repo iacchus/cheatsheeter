@@ -119,12 +119,22 @@ class Cheatsheeter:
                                    #  data=tb,
                                    #  verbose=verbose)
 
-    def print_cheatsheets(self, cheatsheets=None):
+    def print_cheatsheets(self, cheatsheets=None, program=None):
 
         if not cheatsheets:
             cheatsheets = self.cheatsheets
 
-        for program, entries in cheatsheets.items():
+        if program and program not in cheatsheets.keys():
+        #  if program and program not in cheatsheets:
+            print(f"Cheatsheet '{program}' doesn\'t exist.")
+            exit(1)
+        elif program and program in cheatsheets.keys():
+            #  _cheatsheets = cheatsheets[program]
+            _cheatsheets = {program: cheatsheets[program]}
+        else:
+            _cheatsheets = cheatsheets
+
+        for program, entries in _cheatsheets.items():
             hotkey_list = list()
 
             for entry in entries:
@@ -170,10 +180,11 @@ def list_cmd():
 
 
 @cheatsheeter.command(name="print")
-def print_cmd():
+@click.argument("program", required=False)
+def print_cmd(program):
     cs = Cheatsheeter()
 
-    cs.print_cheatsheets()
+    cs.print_cheatsheets(program=program)
 
 
 @cheatsheeter.command(name="write")
