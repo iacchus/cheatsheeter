@@ -53,7 +53,7 @@ class Cheatsheeter:
         output_file_path = f"{output_path}/{program_name}.md"
         return output_file_path
 
-    def read_cheatsheets(self, cheatsheets_dict=None):
+    def read_cheatsheets(self, cheatsheets_dict=None, verbose=False):
 
         if not cheatsheets_dict:
             cheatsheets_dict = self.cheatsheets_dict
@@ -62,7 +62,9 @@ class Cheatsheeter:
 
         for program, filepath in cheatsheets_dict.items():
 
-            print(f"Reading file '{filepath}'.")
+            if verbose:
+                print(f"Reading file '{filepath}'.")
+
             with open(filepath, "r") as cheetsheet_fd:
                 cheatsheet = cheetsheet_fd.read()
 
@@ -73,18 +75,19 @@ class Cheatsheeter:
 
         self.cheatsheets = cheatsheets
 
-    def write_output_file(self, output_path, program_name, data):
+    def write_output_file(self, output_path, program_name, data, verbose):
         output_file_path = self.get_output_file_path(output_path=output_path,
                                                      program_name=program_name)
 
-        print(f"Writing file '{output_file_path}'.")
+        if verbose:
+            print(f"Writing file '{output_file_path}'.")
 
         with open(output_file_path, "w") as output_file:
             output_file.write(data)
 
         return output_file_path
 
-    def write_files(self, cheatsheets=None, output_path=None):
+    def write_files(self, cheatsheets=None, output_path=None, verbose=False):
 
         if not cheatsheets:
             cheatsheets = self.cheatsheets
@@ -106,7 +109,8 @@ class Cheatsheeter:
 
             self.write_output_file(output_path=output_path,
                                    program_name=program,
-                                   data=tb)
+                                   data=tb,
+                                   verbose=verbose)
 
     def print_cheatsheets(self, cheatsheets=None):
 
@@ -144,7 +148,7 @@ def cheatsheeter(ctx, print):
         if print:
             cs.print_cheatsheets()
         else:
-            cs.write_files()
+            cs.write_files(verbose=True)
 
 @cheatsheeter.command()
 def list():
@@ -152,7 +156,7 @@ def list():
                       output_path=OUTPUT_PATH)
 
     cheatsheet_list = "\n".join(cs.cheatsheets_dict.keys())
-    print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
+    #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
     print(cheatsheet_list)
 
 
