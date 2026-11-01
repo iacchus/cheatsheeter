@@ -104,7 +104,21 @@ class Cheatsheeter:
         for program, entries in cheatsheets.items():
             hotkey_list = list()
 
+            cheatsheet_markdown = str()
+
             for entry in entries:
+                if entry.startswith("# "):
+                    section = entry.split('\n')
+                    section_title = section[0]
+                    if len(section) > 1:
+                        section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
+                    print(section)
+                    print("title:", section_title)
+                    print("desc:", section_description)
+                    cheatsheet_markdown += section_title
+                    cheatsheet_markdown += section_description
+                    continue
+
                 action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
                 keys = " + ".join([f"<kbd>{key.title()}</kbd>"
                                    for key in hotkeys.split(' ') if key])
