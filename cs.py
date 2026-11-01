@@ -137,18 +137,19 @@ class Cheatsheeter:
 
 #  @click.command
 @click.group(invoke_without_command=True)
-@click.option("-p", "--print", is_flag=True)
+#  @click.option("-p", "--print", is_flag=True)
 @click.pass_context
-def cheatsheeter(ctx, print):
-    if ctx.invoked_subcommand is None:
-        cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-                          output_path=OUTPUT_PATH)  # FIXME: we don't need this
-                                                    # for printing only
-
-        if print:
-            cs.print_cheatsheets()
-        else:
-            cs.write_files(verbose=True)
+def cheatsheeter(ctx):
+    #  if ctx.invoked_subcommand is None:
+    #      cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
+    #                        output_path=OUTPUT_PATH)  # FIXME: we don't need this
+    #                                                  # for printing only
+    #
+    #      if print:
+    #          cs.print_cheatsheets()
+    #      else:
+    #          cs.write_files(verbose=True)
+    pass
 
 @cheatsheeter.command()
 def list():
@@ -156,8 +157,23 @@ def list():
                       output_path=OUTPUT_PATH)
 
     cheatsheet_list = "\n".join(cs.cheatsheets_dict.keys())
+    print(cs.cheatsheets_dict.keys())
     #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
     print(cheatsheet_list)
+
+@cheatsheeter.command()
+def print():
+    cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
+                      output_path=OUTPUT_PATH)
+
+    cs.print_cheatsheets()
+
+@cheatsheeter.command()
+def write():
+    cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
+                      output_path=OUTPUT_PATH)
+
+    cs.print_cheatsheets()
 
 
 if __name__ == "__main__":
