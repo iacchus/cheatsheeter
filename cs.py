@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import glob
-import pprint
+#  import pprint
 #  import tomllib
 
 import click
@@ -136,10 +136,14 @@ class Cheatsheeter:
 #      pass
 
 #  @click.command
-@click.group(invoke_without_command=True)
 #  @click.option("-p", "--print", is_flag=True)
-@click.pass_context
-def cheatsheeter(ctx):
+#  @click.group(invoke_without_command=True)
+#  @click.group()
+#  @click.pass_context
+#  def cheatsheeter(ctx):
+@click.group()
+def cheatsheeter():
+    pass
     #  if ctx.invoked_subcommand is None:
     #      cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
     #                        output_path=OUTPUT_PATH)  # FIXME: we don't need this
@@ -149,10 +153,9 @@ def cheatsheeter(ctx):
     #          cs.print_cheatsheets()
     #      else:
     #          cs.write_files(verbose=True)
-    pass
 
-@cheatsheeter.command()
-def list():
+@cheatsheeter.command(name="list")
+def list_cmd():
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
 
@@ -161,15 +164,15 @@ def list():
     #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
     print(cheatsheet_list)
 
-@cheatsheeter.command()
-def print():
+@cheatsheeter.command(name="print")
+def print_cmd():
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
 
     cs.print_cheatsheets()
 
-@cheatsheeter.command()
-def write():
+@cheatsheeter.command(name="write")
+def write_cmd():
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
 
