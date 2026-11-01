@@ -117,15 +117,19 @@ class Cheatsheeter:
                     print("desc:", section_description)
                     cheatsheet_markdown += section_title
                     cheatsheet_markdown += section_description
+
+                    hotkey_list = list()
+
                     continue
 
-                action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-                keys = " + ".join([f"<kbd>{key.title()}</kbd>"
-                                   for key in hotkeys.split(' ') if key])
-                hotkey_list.append([action, keys])
+                else:
+                    action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+                    keys = " + ".join([f"<kbd>{key.title()}</kbd>"
+                                       for key in hotkeys.split(' ') if key])
+                    hotkey_list.append([action, keys])
 
-            tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
-                          tablefmt="github")
+                tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+                              tablefmt="github")
 
             self.write_output_file(output_path=output_path,
                                    program_name=program,
