@@ -124,11 +124,13 @@ class Cheatsheeter:
         if not cheatsheets:
             cheatsheets = self.cheatsheets
 
-        if program and program not in cheatsheets.keys():
-        #  if program and program not in cheatsheets:
-            print(f"Cheatsheet '{program}' doesn\'t exist.")
+        #  if program and program not in cheatsheets.keys():
+        if program and program not in cheatsheets:
+            print(f"Cheatsheet '{program}' doesn\'t exist in"
+                  f" '{self.output_path}'.")
             exit(1)
-        elif program and program in cheatsheets.keys():
+        #  elif program and program in cheatsheets.keys():
+        if program and program in cheatsheets:
             #  _cheatsheets = cheatsheets[program]
             _cheatsheets = {program: cheatsheets[program]}
         else:
