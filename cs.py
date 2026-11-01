@@ -160,7 +160,6 @@ def list_cmd():
                       output_path=OUTPUT_PATH)
 
     cheatsheet_list = "\n".join(cs.cheatsheets_dict.keys())
-    print(cs.cheatsheets_dict.keys())
     #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
     print(cheatsheet_list)
 
