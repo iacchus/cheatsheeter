@@ -93,7 +93,7 @@ class Cheatsheeter:
         return output_file_path
 
     def write_files(self, cheatsheets=None, output_path=None):
-        verbose = self.verbose
+        #  verbose = self.verbose
 
         if not cheatsheets:
             cheatsheets = self.cheatsheets
@@ -146,33 +146,25 @@ class Cheatsheeter:
             print(program, tb, sep="\n", end="\n\n")
 
 
-#  @click.command
-#  @click.option("-p", "--print", is_flag=True)
-#  @click.group(invoke_without_command=True)
-#  @click.group()
-#  @click.pass_context
-#  def cheatsheeter(ctx):
-#  @click.group()
 @click.group(invoke_without_command=True)
+@click.option("-v", "--verbose", is_flag=True)
 @click.pass_context
-def cheatsheeter(ctx):
-    pass
-    #  if ctx.invoked_subcommand is None:
-    #      cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-    #                        output_path=OUTPUT_PATH)
-    #
-    #      if print:
-    #          cs.print_cheatsheets()
-    #      else:
-    #          cs.write_files(verbose=True)
+def cheatsheeter(ctx, verbose):
+    ctx.ensure_object(dict)
+    ctx.obj["VERBOSE"] = verbose
 
 
 @cheatsheeter.command(name="list")
-def list_cmd():
+@click.pass_context
+def list_cmd(ctx):
     cs = Cheatsheeter()
 
     cheatsheet_list = "\n".join(cs.cheatsheets_dict.keys())
-    #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
+
+    if ctx.obj["VERBOSE"]:
+        print(f"Available cheatsheets matching '{cs.cheatsheets_path}':",
+              end="\n\n")
+
     print(cheatsheet_list)
 
 
@@ -180,14 +172,12 @@ def list_cmd():
 @click.argument("program", required=False)
 def print_cmd(program):
     cs = Cheatsheeter()
-
     cs.print_cheatsheets(program=program)
 
 
 @cheatsheeter.command(name="write")
 def write_cmd():
     cs = Cheatsheeter(verbose=True)
-
     cs.write_files()
 
 
