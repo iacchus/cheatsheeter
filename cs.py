@@ -175,7 +175,7 @@ def write_cmd():
     cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
                       output_path=OUTPUT_PATH)
 
-    cs.print_cheatsheets()
+    cs.write_files(verbose=True)
 
 
 if __name__ == "__main__":
