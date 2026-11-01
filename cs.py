@@ -27,10 +27,12 @@ TABLE_HEADERS = ["Action", "Hotkeys"]
 
 
 class Cheatsheeter:
-    def __init__(self, cheatsheets_path, output_path):
+    def __init__(self, cheatsheets_path=CHEATSHEETS_PATH,
+                 output_path=OUTPUT_PATH, verbose=False):
 
         self.cheatsheets_path = cheatsheets_path
         self.output_path = output_path
+        self.verbose = verbose
 
         files = self.get_cheatsheet_files(cheatsheets_path)
         self.files = files
@@ -53,7 +55,9 @@ class Cheatsheeter:
         output_file_path = f"{output_path}/{program_name}.md"
         return output_file_path
 
-    def read_cheatsheets(self, cheatsheets_dict=None, verbose=False):
+    #  def read_cheatsheets(self, cheatsheets_dict=None, verbose=False):
+    def read_cheatsheets(self, cheatsheets_dict=None):
+        verbose = self.verbose
 
         if not cheatsheets_dict:
             cheatsheets_dict = self.cheatsheets_dict
@@ -75,9 +79,10 @@ class Cheatsheeter:
 
         self.cheatsheets = cheatsheets
 
-    def write_output_file(self, output_path, program_name, data, verbose):
+    def write_output_file(self, output_path, program_name, data):
         output_file_path = self.get_output_file_path(output_path=output_path,
                                                      program_name=program_name)
+        verbose = self.verbose
 
         if verbose:
             print(f"Writing file '{output_file_path}'.")
@@ -87,7 +92,8 @@ class Cheatsheeter:
 
         return output_file_path
 
-    def write_files(self, cheatsheets=None, output_path=None, verbose=False):
+    def write_files(self, cheatsheets=None, output_path=None):
+        verbose = self.verbose
 
         if not cheatsheets:
             cheatsheets = self.cheatsheets
@@ -109,8 +115,9 @@ class Cheatsheeter:
 
             self.write_output_file(output_path=output_path,
                                    program_name=program,
-                                   data=tb,
-                                   verbose=verbose)
+                                   data=tb)
+                                   #  data=tb,
+                                   #  verbose=verbose)
 
     def print_cheatsheets(self, cheatsheets=None):
 
@@ -156,8 +163,7 @@ def cheatsheeter():
 
 @cheatsheeter.command(name="list")
 def list_cmd():
-    cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-                      output_path=OUTPUT_PATH)
+    cs = Cheatsheeter()
 
     cheatsheet_list = "\n".join(cs.cheatsheets_dict.keys())
     #  print(f"Available cheatsheets matching '{cs.cheatsheets_path}':", end="\n\n")
@@ -165,17 +171,15 @@ def list_cmd():
 
 @cheatsheeter.command(name="print")
 def print_cmd():
-    cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-                      output_path=OUTPUT_PATH)
+    cs = Cheatsheeter()
 
     cs.print_cheatsheets()
 
 @cheatsheeter.command(name="write")
 def write_cmd():
-    cs = Cheatsheeter(cheatsheets_path=CHEATSHEETS_PATH,
-                      output_path=OUTPUT_PATH)
+    cs = Cheatsheeter(verbose=True)
 
-    cs.write_files(verbose=True)
+    cs.write_files()
 
 
 if __name__ == "__main__":
