@@ -108,6 +108,10 @@ class Cheatsheeter:
 
             for entry in entries:
                 if entry.startswith("# "):
+                    if len(hotkey_list) > 0:
+                        tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+                                      tablefmt="github")
+                        cheatsheet_markdown += tb
                     section = entry.split('\n')
                     section_title = section[0]
                     if len(section) > 1:
@@ -128,10 +132,10 @@ class Cheatsheeter:
                                        for key in hotkeys.split(' ') if key])
                     hotkey_list.append([action, keys])
 
-                tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+            tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                               tablefmt="github")
 
-                cheatsheet_markdown += tb
+            cheatsheet_markdown += tb
 
             self.write_output_file(output_path=output_path,
                                    program_name=program,
