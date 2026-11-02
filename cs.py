@@ -185,7 +185,6 @@ class Cheatsheeter:
                     else:
                         section_description = ""
 
-                    cheatsheet_text += f"---\n\n"
                     cheatsheet_text += f"{section_title}\n\n"
                     cheatsheet_text += f"{section_description}\n\n"
 
