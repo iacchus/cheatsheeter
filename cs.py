@@ -122,8 +122,8 @@ class Cheatsheeter:
                     #  print("title:", section_title)
                     #  print("desc:", section_description)
                     cheatsheet_markdown += f"---\n\n"
-                    cheatsheet_markdown += f"{section_title}\n\n"
-                    cheatsheet_markdown += f"{section_description}\n\n"
+                    cheatsheet_markdown += f"{section_title}  \n\n"
+                    cheatsheet_markdown += f"{section_description}  \n\n"
 
                     hotkey_list = list()
 
