@@ -105,7 +105,7 @@ class Cheatsheeter:
             hotkey_list = list()
 
             cheatsheet_markdown = str()
-            cheatsheet_dict = str()
+            #  cheatsheet_dict = str()
 
             for entry in entries:
 
@@ -149,9 +149,6 @@ class Cheatsheeter:
             self.write_output_file(output_path=output_path,
                                    program_name=program,
                                    data=cheatsheet_markdown)
-            #  self.write_output_file(output_path=output_path,
-            #                         program_name=program,
-            #                         data=tb)
 
     def print_cheatsheets(self, cheatsheets=None, program=None):
 
