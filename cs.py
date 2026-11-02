@@ -124,9 +124,7 @@ class Cheatsheeter:
                         section_description = "\n".join(f"{line.removeprefix("# ")}  " for line in section[1:])
                     else:
                         section_description = ""
-                    #  print(section)
-                    #  print("title:", section_title)
-                    #  print("desc:", section_description)
+
                     cheatsheet_markdown += f"---\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
                     cheatsheet_markdown += f"{section_description}\n\n"
@@ -159,6 +157,7 @@ class Cheatsheeter:
             print(f"Cheatsheet '{program}' doesn\'t exist in"
                   f" '{self.output_path}'.")
             exit(1)
+
         if program and program in cheatsheets:
             _cheatsheets = {program: cheatsheets[program]}
         else:
