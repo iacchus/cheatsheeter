@@ -114,9 +114,10 @@ class Cheatsheeter:
                         #  cheatsheet_markdown += tb
                         cheatsheet_markdown += f"{tb}\n\n"
                     section = entry.split('\n')
-                    section_title = section[0]
+                    section_title = f"## {section[0].removeprefix('# ')}"
                     if len(section) > 1:
-                        section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
+                        #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
+                        section_description = "\n".join(line.removeprefix("# ") for line in section[1:])
                     print(section)
                     print("title:", section_title)
                     print("desc:", section_description)
