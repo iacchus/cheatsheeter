@@ -105,19 +105,25 @@ class Cheatsheeter:
             hotkey_list = list()
 
             cheatsheet_markdown = str()
+            cheatsheet_dict = str()
 
             for entry in entries:
+
                 if entry.startswith("# "):
                     if len(hotkey_list) > 0:
                         tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                                       tablefmt="github")
                         #  cheatsheet_markdown += tb
-                        cheatsheet_markdown += f"{tb}\n\n  "
+                        cheatsheet_markdown += f"{tb}\n\n"
+                        hotkey_list = list()
+
                     section = entry.split('\n')
                     section_title = f"## {section[0].removeprefix('# ')}"
                     if len(section) > 1:
-                        section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
-                        #  section_description = "\n".join(line.removeprefix("# ") for line in section[1:])
+                        #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
+                        section_description = "\n".join(f"{line.removeprefix("# ")}  " for line in section[1:])
+                    else:
+                        section_description = ""
                     #  print(section)
                     #  print("title:", section_title)
                     #  print("desc:", section_description)
@@ -125,7 +131,7 @@ class Cheatsheeter:
                     cheatsheet_markdown += f"{section_title}\n\n"
                     cheatsheet_markdown += f"{section_description}\n\n"
 
-                    hotkey_list = list()
+                    #  hotkey_list = list()
 
                     continue
 
