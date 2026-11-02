@@ -112,15 +112,16 @@ class Cheatsheeter:
                         tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                                       tablefmt="github")
                         #  cheatsheet_markdown += tb
-                        cheatsheet_markdown += f"{tb}\n\n"
+                        cheatsheet_markdown += f"{tb}\n\n  "
                     section = entry.split('\n')
                     section_title = f"## {section[0].removeprefix('# ')}"
                     if len(section) > 1:
                         #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
                         section_description = "\n".join(line.removeprefix("# ") for line in section[1:])
-                    print(section)
-                    print("title:", section_title)
-                    print("desc:", section_description)
+                    #  print(section)
+                    #  print("title:", section_title)
+                    #  print("desc:", section_description)
+                    cheatsheet_markdown += f"---\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
                     cheatsheet_markdown += f"{section_description}\n\n"
 
