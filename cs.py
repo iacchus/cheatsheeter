@@ -166,16 +166,50 @@ class Cheatsheeter:
         for program, entries in _cheatsheets.items():
             hotkey_list = list()
 
+            cheatsheet_text = str()
+
             for entry in entries:
-                action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
-                keys = " + ".join([f"{key.title()}"
-                                   for key in hotkeys.split(' ')
-                                   if key.strip()])
-                hotkey_list.append([action, keys])
+                if entry.startswith("# "):
+                    if len(hotkey_list) > 0:
+                        tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
+                                      tablefmt="rounded_grid")
+                        #  cheatsheet_markdown += tb
+                        cheatsheet_text += f"{tb}\n\n"
+                        hotkey_list = list()
+
+                    section = entry.split('\n')
+                    section_title = f"## {section[0].removeprefix('# ')}"
+                    if len(section) > 1:
+                        #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
+                        section_description = "\n".join(f"{line.removeprefix("# ")}  " for line in section[1:])
+                    else:
+                        section_description = ""
+
+                    cheatsheet_text += f"---\n\n"
+                    cheatsheet_text += f"{section_title}\n\n"
+                    cheatsheet_text += f"{section_description}\n\n"
+
+                    #  hotkey_list = list()
+
+                    continue
+                else:
+
+                    action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
+                    keys = " + ".join([f"{key.title()}"
+                                       for key in hotkeys.split(' ')
+                                       if key.strip()])
+                    hotkey_list.append([action, keys])
 
             tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                           tablefmt="rounded_grid")
-            print(program, tb, sep="\n", end="\n\n")
+            cheatsheet_text += f"{tb}\n\n"
+
+            #  self.write_output_file(output_path=output_path,
+            #                         program_name=program,
+            #                         data=cheatsheet_markdown)
+
+            #  print(program, tb, sep="\n", end="\n\n")
+            print(program, cheatsheet_text, sep="\n\n", end="\n\n")
 
 
 @click.group(invoke_without_command=True)
