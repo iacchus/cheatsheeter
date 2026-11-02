@@ -111,7 +111,8 @@ class Cheatsheeter:
                     if len(hotkey_list) > 0:
                         tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                                       tablefmt="github")
-                        cheatsheet_markdown += tb
+                        #  cheatsheet_markdown += tb
+                        cheatsheet_markdown += f"{tb}\n\n"
                     section = entry.split('\n')
                     section_title = section[0]
                     if len(section) > 1:
@@ -135,7 +136,7 @@ class Cheatsheeter:
             tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                               tablefmt="github")
 
-            cheatsheet_markdown += tb
+            cheatsheet_markdown += f"{tb}\n\n"
 
             self.write_output_file(output_path=output_path,
                                    program_name=program,
