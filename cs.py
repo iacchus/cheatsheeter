@@ -115,8 +115,8 @@ class Cheatsheeter:
                     print(section)
                     print("title:", section_title)
                     print("desc:", section_description)
-                    cheatsheet_markdown += section_title
-                    cheatsheet_markdown += section_description
+                    cheatsheet_markdown += f"{section_title}\n\n"
+                    cheatsheet_markdown += f"{section_description}\n\n"
 
                     hotkey_list = list()
 
@@ -131,9 +131,14 @@ class Cheatsheeter:
                 tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                               tablefmt="github")
 
+                cheatsheet_markdown += tb
+
             self.write_output_file(output_path=output_path,
                                    program_name=program,
-                                   data=tb)
+                                   data=cheatsheet_markdown)
+            #  self.write_output_file(output_path=output_path,
+            #                         program_name=program,
+            #                         data=tb)
 
     def print_cheatsheets(self, cheatsheets=None, program=None):
 
