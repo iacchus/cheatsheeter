@@ -9,7 +9,6 @@ import click
 from tabulate import tabulate
 
 DEBUG = False
-#  del(DEBUG)
 
 CHEATSHEETS_PATH = "./hotkeys/*.xx"
 OUTPUT_PATH = "./output"
@@ -55,7 +54,6 @@ class Cheatsheeter:
         output_file_path = f"{output_path}/{program_name}.md"
         return output_file_path
 
-    #  def read_cheatsheets(self, cheatsheets_dict=None, verbose=False):
     def read_cheatsheets(self, cheatsheets_dict=None):
         verbose = self.verbose
 
@@ -113,7 +111,6 @@ class Cheatsheeter:
                     if len(hotkey_list) > 0:
                         tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                                       tablefmt="github")
-                        #  cheatsheet_markdown += tb
                         cheatsheet_markdown += f"{tb}\n\n"
                         hotkey_list = list()
 
@@ -128,8 +125,6 @@ class Cheatsheeter:
                     cheatsheet_markdown += f"---\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
                     cheatsheet_markdown += f"{section_description}\n\n"
-
-                    #  hotkey_list = list()
 
                     continue
 
@@ -173,7 +168,6 @@ class Cheatsheeter:
                     if len(hotkey_list) > 0:
                         tb = tabulate(tabular_data=hotkey_list, headers=TABLE_HEADERS,
                                       tablefmt="rounded_grid")
-                        #  cheatsheet_markdown += tb
                         cheatsheet_text += f"{tb}\n\n"
                         hotkey_list = list()
 
@@ -188,9 +182,8 @@ class Cheatsheeter:
                     cheatsheet_text += f"{section_title}\n\n"
                     cheatsheet_text += f"{section_description}\n\n"
 
-                    #  hotkey_list = list()
-
                     continue
+
                 else:
 
                     action, hotkeys = entry.strip('\n').split('\n', maxsplit=1)
@@ -203,11 +196,6 @@ class Cheatsheeter:
                           tablefmt="rounded_grid")
             cheatsheet_text += f"{tb}\n\n"
 
-            #  self.write_output_file(output_path=output_path,
-            #                         program_name=program,
-            #                         data=cheatsheet_markdown)
-
-            #  print(program, tb, sep="\n", end="\n\n")
             print(program, cheatsheet_text, sep="\n\n", end="\n\n")
 
 
