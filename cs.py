@@ -123,7 +123,7 @@ class Cheatsheeter:
                         section_description = ""
 
                     if idx > 0:
-                        cheatsheet_markdown += f"<br/><br/>\n\n"
+                        cheatsheet_markdown += f"<br/>\n\n"
                         #  cheatsheet_markdown += f"---\n\n"
                         #  cheatsheet_markdown += f"<hr style=\"opacity: 0; margin: 25px 0;\" />\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
