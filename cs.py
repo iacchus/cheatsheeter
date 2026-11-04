@@ -105,7 +105,7 @@ class Cheatsheeter:
             cheatsheet_markdown = str()
             #  cheatsheet_dict = str()
 
-            for entry in entries:
+            for idx, entry in enumerate(entries):
 
                 if entry.startswith("# "):
                     if len(hotkey_list) > 0:
@@ -122,7 +122,10 @@ class Cheatsheeter:
                     else:
                         section_description = ""
 
-                    cheatsheet_markdown += f"---\n\n"
+                    if idx > 0:
+                        cheatsheet_markdown += f"<br/><br/>\n\n"
+                        #  cheatsheet_markdown += f"---\n\n"
+                        #  cheatsheet_markdown += f"<hr style=\"opacity: 0; margin: 25px 0;\" />\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
                     cheatsheet_markdown += f"{section_description}\n\n"
 
