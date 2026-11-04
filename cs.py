@@ -127,7 +127,8 @@ class Cheatsheeter:
                         #  cheatsheet_markdown += f"---\n\n"
                         #  cheatsheet_markdown += f"<hr style=\"opacity: 0; margin: 25px 0;\" />\n\n"
                     cheatsheet_markdown += f"{section_title}\n\n"
-                    cheatsheet_markdown += f"{section_description}\n\n"
+                    if section_description:
+                        cheatsheet_markdown += f"{section_description}\n\n"
 
                     continue
 
@@ -183,7 +184,8 @@ class Cheatsheeter:
                         section_description = ""
 
                     cheatsheet_text += f"{section_title}\n\n"
-                    cheatsheet_text += f"{section_description}\n\n"
+                    if section_description:
+                        cheatsheet_text += f"{section_description}\n\n"
 
                     continue
 
