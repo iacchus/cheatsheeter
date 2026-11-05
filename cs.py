@@ -115,7 +115,10 @@ class Cheatsheeter:
                         hotkey_list = list()
 
                     section = entry.split('\n')
-                    section_title = f"## {section[0].removeprefix('# ')}"
+                    is_section_header = "## " if not \
+                            section[0].startswith("# > ") \
+                            else ""
+                    section_title = f"{is_section_header}{section[0].removeprefix('# ')}"
                     if len(section) > 1:
                         #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
                         section_description = "\n".join(f"{line.removeprefix("# ")}  " for line in section[1:])
@@ -126,7 +129,12 @@ class Cheatsheeter:
                         cheatsheet_markdown += f"<br/>\n\n"
                         #  cheatsheet_markdown += f"---\n\n"
                         #  cheatsheet_markdown += f"<hr style=\"opacity: 0; margin: 25px 0;\" />\n\n"
-                    cheatsheet_markdown += f"{section_title}\n\n"
+
+                    if not is_section_header:
+                        cheatsheet_markdown += f"{section_title}\n"
+                    else:
+                        cheatsheet_markdown += f"{section_title}\n\n"
+                    #  cheatsheet_markdown += f"{section_title}\n\n"
                     if section_description:
                         cheatsheet_markdown += f"{section_description}\n\n"
 
@@ -177,6 +185,10 @@ class Cheatsheeter:
 
                     section = entry.split('\n')
                     section_title = f"## {section[0].removeprefix('# ')}"
+                    #  is_section_header = "## " if not \
+                    #          section[0].startswith("# > ") \
+                    #          else ""
+                    #  section_title = f"{is_section_header}{section[0].removeprefix('# ')}"
                     if len(section) > 1:
                         #  section_description = "\n".join(f"{line[2:]}  " for line in section[1:])
                         section_description = "\n".join(f"{line.removeprefix("# ")}  " for line in section[1:])
@@ -184,8 +196,7 @@ class Cheatsheeter:
                         section_description = ""
 
                     cheatsheet_text += f"{section_title}\n\n"
-                    if section_description:
-                        cheatsheet_text += f"{section_description}\n\n"
+                    cheatsheet_text += f"{section_description}\n\n"
 
                     continue
 
